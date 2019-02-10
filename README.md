@@ -8,6 +8,8 @@ A week or so ago, I was a bit bored. I didn't really know what to do. This happe
 
 As I've said before I had nothing in particular to do. Therefore I've decided to try what Reddit post has suggested.
 
+What I want to do now is walk you thru the steps necessary to configure Termux in a way that will allow you to download YouTube videos straight from the app. First, I'll go thru the steps described in the Reddit post. Following  that I'll also show you how to make downloading the videos a bit easier. If you follow this blog post till the end, you will be able to choose between video, audio and both formats when downloading videos.
+
 Now come and join me on this epic journey. ;-)
 
 If you haven't already, please install Termux from [Google Play Store](https://play.google.com/store/apps/details?id=com.termux).
@@ -39,7 +41,7 @@ pkg install python
 pip install youtube-dl
 ```
 
-I was already thinking about downloading not only video but also audio files (more on that later), therefore I've created folders in which I'll be saving downloaded video (and audio) files. We will do the same, because, why not:
+At this point I was already thinking about downloading not only video but also audio files (more on that later), therefore I've created folders in which I'll be saving downloaded video (and audio) files. We will do the same, because, why not:
 
 ```bash
 mkdir -p /data/data/com.termux/files/home/storage/shared/Youtube/{audio,video}
@@ -59,7 +61,7 @@ In that file, we put the following:
 -o /data/data/com.termux/files/home/storage/shared/Youtube/video/%(title)s.%(ext)s
 -f "best[height<=1080]"
 ```
-The *[height<=1080]* tells youtube-dl to download the best quality version up to 480px in width. You can change to 240, 360, 720 or 1080, etc. to suit your needs/bandwidth restrictions.
+The *[height<=1080]* tells youtube-dl to download the best quality version up to 1080px in width. You can change it to 240, 360, 420, 720, etc. to suit your needs/bandwidth restrictions.
 
 We then save the file with Ctrl+O ("Volume-down"+O) and close nano with Ctrl+X ("Vol-down"+X).
 
@@ -81,11 +83,11 @@ Save the file with Ctrl+O ("Volume-down"+O) and close nano with Ctrl+X ("Vol-dow
 
 And viola, we are done!
 
-Now when you want to download a YouTube video from within the Youtube app, click the *Share* under the video, then choose *Termux*. Termux will open and the download will start. Downloaded videos will be available in the *Youtube* folder in the root of your internal storage.
+Now when you want to download a YouTube video from within the Youtube app, click *Share* under the video, then choose *Termux*. Termux will open and the download will start. Downloaded videos will be available in the *Youtube/video* folder in the root of your internal storage.
 
 ## Making the experience even better
 
-I know youtube-dl. I use it often enough on my computer. And I know that it is capable of downloading just the audio from any YouTube video. Therefore the idea of having the ability to choose which format to download seemed appealing to me. And I was 100% sure I can bring that idea to life. And I did it. I've made myself a script which opens a popup window where I choose the format. The chosen format is then downloaded into the appropriate folder on my phone.
+I know youtube-dl. I use it often enough on my computer. And I know that it is capable of downloading just the audio from any YouTube video. Therefore the idea of having the ability to choose which format to download seemed appealing to me. And I was 100% sure I can bring that idea to life. And I did it. I've made myself a script which opens up a popup window where I choose the format. The chosen format is then downloaded into the appropriate folder on my phone.
 
 Now come and follow me. I'm sure you won't regret it. :-)
 
@@ -138,9 +140,9 @@ Now replace the current content of the configuration file with the following:
 --no-mtime
 -f "best[height<=1080]"
 ```
-Again, the *[height<=1080]* tells youtube-dl to download the best quality version up to 480px in width. You can change to 240, 360, 720 or 1080, etc. to suit your needs/bandwidth restrictions.
+Again, the *[height<=1080]* tells youtube-dl to download the best quality version up to 1080px in width. You can change it to 240, 360, 420, 720, etc. to suit your needs/bandwidth restrictions.
 
-The only thing to do now it to change the *termux-url-opener* file. GO ahead and open that file with nano:
+The only thing left to do now is changing the *termux-url-opener* file. Go ahead and open that file with nano:
 
 ```bash
 nano ~/bin/termux-url-opener
@@ -151,3 +153,5 @@ Replace the current content of the file with the following:
 ```bash
 bash /data/data/com.termux/files/home/bin/ytdl.sh $1
 ```
+
+That's it. We are done. Now go ahead and give it a try.
