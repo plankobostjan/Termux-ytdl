@@ -1,0 +1,1 @@
+bash /data/data/com.termux/files/home/bin/ytdl.sh $1
